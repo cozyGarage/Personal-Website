@@ -1,33 +1,44 @@
 'use strict';
+
 // element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+const elementToggleFunc = (elem) => {
+  elem.classList.toggle("active");
+};
+
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+sidebarBtn.addEventListener("click", () => {
+  elementToggleFunc(sidebar);
+});
+
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
 const overlay = document.querySelector("[data-overlay]");
+
 // modal variable
 const modalImg = document.querySelector("[data-modal-img]");
 const modalTitle = document.querySelector("[data-modal-title]");
 const modalText = document.querySelector("[data-modal-text]");
+
 // modal toggle function
-const testimonialsModalFunc = function () {
+const testimonialsModalFunc = () => {
   modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
-}
+};
+
 // add click event to all modal items
-testimonialsItem.forEach(item => {
-  item.addEventListener("click", function () {
-    const avatar = this.querySelector("[data-testimonials-avatar]");
+testimonialsItem.forEach((item) => {
+  item.addEventListener("click", () => {
+    const avatar = item.querySelector("[data-testimonials-avatar]");
     modalImg.src = avatar.src;
     modalImg.alt = avatar.alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+    modalTitle.innerHTML = item.querySelector("[data-testimonials-title]").innerHTML;
+    modalText.innerHTML = item.querySelector("[data-testimonials-text]").innerHTML;
     testimonialsModalFunc();
   });
 });
@@ -35,12 +46,17 @@ testimonialsItem.forEach(item => {
 // add click event to modal close button
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
 overlay.addEventListener("click", testimonialsModalFunc);
+
 // custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-select-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
-select.addEventListener("click", function () { elementToggleFunc(select); });
+
+select.addEventListener("click", () => {
+  elementToggleFunc(select);
+});
+
 // add event in all select items
 selectItems.forEach((item) => {
   item.addEventListener("click", () => {
@@ -67,23 +83,17 @@ const filterFunc = (selectedValue) => {
 // add event in all filter button items for large screen
 let lastClickedBtn = filterBtn[0];
 
-for (let i = 0; i < filterBtn.length; i++) {
-
-  filterBtn[i].addEventListener("click", function () {
-
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
+filterBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    let selectedValue = btn.innerText.toLowerCase();
+    selectValue.innerText = btn.innerText;
     filterFunc(selectedValue);
 
     lastClickedBtn.classList.remove("active");
-    this.classList.add("active");
-    lastClickedBtn = this;
-
+    btn.classList.add("active");
+    lastClickedBtn = btn;
   });
-
-}
-
-
+});
 
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
@@ -92,21 +102,19 @@ const thankYouMsg = document.querySelector("[data-thankyou-msg]");
 const returnBtn = document.querySelector("[data-return-btn]");
 
 // add event to all form input fields
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
+formInputs.forEach((input) => {
+  input.addEventListener("input", () => {
     // check form validation
     if (form.checkValidity()) {
       formBtn.removeAttribute("disabled");
     } else {
       formBtn.setAttribute("disabled", "");
     }
-
   });
-}
+});
 
 // add event to form submit
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   // create an object to store form data
@@ -124,15 +132,11 @@ form.addEventListener("submit", function (event) {
   thankYouMsg.style.display = "block";
 
   // add event to return button
-  returnBtn.addEventListener("click", function () {
+  returnBtn.addEventListener("click", () => {
     // redirect to homepage
     window.location.href = "http://www.cc.puv.fi/~e1500953";
   });
 });
-
-
-
-
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
