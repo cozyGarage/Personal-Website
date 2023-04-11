@@ -21,7 +21,6 @@ const testimonialsModalFunc = function () {
   overlay.classList.toggle("active");
 }
 // add click event to all modal items
-
 testimonialsItem.forEach(item => {
   item.addEventListener("click", function () {
     const avatar = this.querySelector("[data-testimonials-avatar]");
@@ -148,19 +147,17 @@ const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
 // add event to all nav link
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
-
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
+navigationLinks.forEach((link, index) => {
+  link.addEventListener("click", () => {
+    pages.forEach((page, pageIndex) => {
+      if (link.innerHTML.toLowerCase() === page.dataset.page) {
+        page.classList.add("active");
+        link.classList.add("active");
         window.scrollTo(0, 0);
       } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
+        page.classList.remove("active");
+        navigationLinks[pageIndex].classList.remove("active");
       }
-    }
-
+    });
   });
-}
+});
